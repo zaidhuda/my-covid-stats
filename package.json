@@ -9,12 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@types/d3": "^7.0.0",
+    "@types/lodash": "^4.14.171",
+    "@types/topojson-client": "^3.1.0",
     "axios": "^0.21.1",
     "csvtojson": "^2.0.10",
+    "d3": "6",
+    "lodash": "^4.17.21",
     "next": "11.0.1",
     "react": "17.0.2",
     "react-dom": "17.0.2",
-    "react-query": "^3.19.0"
+    "react-query": "^3.19.0",
+    "topojson-client": "3"
   },
   "devDependencies": {
     "@types/react": "17.0.14",

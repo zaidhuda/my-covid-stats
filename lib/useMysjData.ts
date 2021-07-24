@@ -3,38 +3,53 @@ import { useQuery } from 'react-query'
 import { mysj } from '../lib/api'
 import csv from 'csvtojson';
 
-const hook = () => {
-  const {isLoading: checkinMalaysiaLoading, data: {data: checkinMalaysiaRawData} = {}} = useQuery('checkinMalaysia', mysj.checkinMalaysia);
-  const {isLoading: checkinMalaysiaTimeLoading, data: {data: checkinMalaysiaTimeRawData} = {}} = useQuery('checkinMalaysiaTime', mysj.checkinMalaysiaTime);
-  const {isLoading: traceMalaysiaLoading, data: {data: traceMalaysiaRawData} = {}} = useQuery('traceMalaysia', mysj.traceMalaysia);
+const useHook = () => {
+  const {
+    isLoading: checkinMalaysiaLoading,
+    data: { data: checkinMalaysiaRawData } = {},
+  } = useQuery('checkinMalaysia', mysj.checkinMalaysia);
+  const {
+    isLoading: checkinMalaysiaTimeLoading,
+    data: { data: checkinMalaysiaTimeRawData } = {},
+  } = useQuery('checkinMalaysiaTime', mysj.checkinMalaysiaTime);
+  const {
+    isLoading: traceMalaysiaLoading,
+    data: { data: traceMalaysiaRawData } = {},
+  } = useQuery('traceMalaysia', mysj.traceMalaysia);
 
-  const [checkinMalaysiaData, setCheckinMalaysiaData] = useState();
-  const [checkinMalaysiaTimeData, setCheckinMalaysiaTimeData] = useState();
-  const [traceMalaysiaData, setTraceMalaysiaData] = useState();
+  const [checkinMalaysiaData, setCheckinMalaysiaData] = useState<{}[]>();
+  const [checkinMalaysiaTimeData, setCheckinMalaysiaTimeData] =
+    useState<{}[]>();
+  const [traceMalaysiaData, setTraceMalaysiaData] = useState<{}[]>();
 
   useEffect(() => {
     if (!checkinMalaysiaLoading && checkinMalaysiaRawData) {
       csv().fromString(checkinMalaysiaRawData).then(setCheckinMalaysiaData);
     }
-  }, [checkinMalaysiaLoading])
+  }, [checkinMalaysiaLoading, checkinMalaysiaRawData]);
 
   useEffect(() => {
     if (!checkinMalaysiaTimeLoading && checkinMalaysiaTimeRawData) {
-      csv().fromString(checkinMalaysiaTimeRawData).then(setCheckinMalaysiaTimeData);
+      csv()
+        .fromString(checkinMalaysiaTimeRawData)
+        .then(setCheckinMalaysiaTimeData);
     }
-  }, [checkinMalaysiaTimeLoading])
+  }, [checkinMalaysiaTimeLoading, checkinMalaysiaTimeRawData]);
 
   useEffect(() => {
     if (!traceMalaysiaLoading && traceMalaysiaRawData) {
       csv().fromString(traceMalaysiaRawData).then(setTraceMalaysiaData);
     }
-  }, [traceMalaysiaLoading])
+  }, [traceMalaysiaLoading, traceMalaysiaRawData]);
 
   return {
-    checkinMalaysiaLoading, checkinMalaysiaData,
-    checkinMalaysiaTimeLoading, checkinMalaysiaTimeData,
-    traceMalaysiaLoading, traceMalaysiaData,
-  }
-}
+    checkinMalaysiaLoading,
+    checkinMalaysiaData,
+    checkinMalaysiaTimeLoading,
+    checkinMalaysiaTimeData,
+    traceMalaysiaLoading,
+    traceMalaysiaData,
+  };
+};
 
-export default hook;
+export default useHook;

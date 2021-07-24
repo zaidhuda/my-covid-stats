@@ -1,32 +1,30 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import useEpidemicData from '../lib/useEpidemicData'
-import styles from '../styles/Home.module.css'
+import SpikeMap from '../components/SpikeMap';
+import useEpidemicData from '../lib/useEpidemicData';
+import styles from '../styles/Home.module.css';
 
 export default function Home() {
   const {
-    casesMalaysiaLoading, casesMalaysiaData,
-    casesStateLoading, casesStateData,
-    clustersLoading, clustersData,
-    deathsMalaysiaLoading, deathsMalaysiaData,
-    deathsStateLoading, deathsStateData,
-    hospitalLoading, hospitalData,
-    icuLoading, icuData,
-    pkrcLoading, pkrcData,
-    testsMalaysiaLoading, testsMalaysiaData,
+    casesMalaysiaLoading,
+    casesMalaysiaData,
+    casesStateLoading,
+    casesStateData,
+    clustersLoading,
+    clustersData,
+    deathsMalaysiaLoading,
+    deathsMalaysiaData,
+    deathsStateLoading,
+    deathsStateData,
+    hospitalLoading,
+    hospitalData,
+    icuLoading,
+    icuData,
+    pkrcLoading,
+    pkrcData,
+    testsMalaysiaLoading,
+    testsMalaysiaData,
   } = useEpidemicData();
-
-  console.log({
-    casesMalaysiaLoading, casesMalaysiaData,
-    casesStateLoading, casesStateData,
-    clustersLoading, clustersData,
-    deathsMalaysiaLoading, deathsMalaysiaData,
-    deathsStateLoading, deathsStateData,
-    hospitalLoading, hospitalData,
-    icuLoading, icuData,
-    pkrcLoading, pkrcData,
-    testsMalaysiaLoading, testsMalaysiaData,
-  });
 
   return (
     <div className={styles.container}>
@@ -38,7 +36,12 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>Cases Today</h1>
-        <p>{!casesMalaysiaLoading && casesMalaysiaData && casesMalaysiaData[casesMalaysiaData.length - 1].cases_new}</p>
+        <p>
+          {!casesMalaysiaLoading &&
+            casesMalaysiaData &&
+            casesMalaysiaData[casesMalaysiaData.length - 1].cases_new}
+        </p>
+        <SpikeMap data={casesStateData} loading={casesStateLoading} />
       </main>
 
       <footer className={styles.footer}>
@@ -54,5 +57,5 @@ export default function Home() {
         </a>
       </footer>
     </div>
-  )
+  );
 }

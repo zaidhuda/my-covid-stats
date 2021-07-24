@@ -25,5 +25,3 @@ export const mysj = {
 export const staticData = {
   population: () => api.get('/static/population.csv'),
 }
-
-export default {epidemic, mysj, staticData};
