@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { Box, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from "@chakra-ui/react"
 import Footer from '../components/Footer';
 import CasesToday from '../components/CasesToday';
+import Trend from '../components/Trend';
 
 export default function Home() {
   return (
@@ -16,7 +17,7 @@ export default function Home() {
           <Tabs isFitted variant="enclosed" w="full">
             <TabList>
               <Tab>Cases Today</Tab>
-              <Tab>Second</Tab>
+              <Tab>Trend</Tab>
               <Tab>Third</Tab>
             </TabList>
             <TabPanels>
@@ -24,7 +25,7 @@ export default function Home() {
                 <CasesToday />
               </TabPanel>
               <TabPanel>
-                  Coming soon #1!
+                <Trend />
               </TabPanel>
               <TabPanel>
                 Coming soon #2!

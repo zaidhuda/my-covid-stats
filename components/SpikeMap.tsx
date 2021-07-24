@@ -52,6 +52,8 @@ const SpikeMap = ({ loading, data: casesStates }: Props) => {
 
     const svg = d3.select(ref.current);
 
+    svg.selectAll('*').remove();
+
     svg
       .append('path')
       .datum(topojson.feature(my, my.objects.malaysia))
@@ -119,6 +121,7 @@ const SpikeMap = ({ loading, data: casesStates }: Props) => {
         height,
         maxWidth: '100%',
         maxHeight: '100%',
+        margin: 'auto',
       }}
     />
   );

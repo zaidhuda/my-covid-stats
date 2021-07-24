@@ -60,6 +60,8 @@ const Choropleth = ({ loading, data: casesStates }: Props) => {
 
     const svg = d3.select(ref.current);
 
+    svg.selectAll('*').remove();
+
     svg
       .append('g')
       .selectAll('path')

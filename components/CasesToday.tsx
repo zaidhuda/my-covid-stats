@@ -9,20 +9,6 @@ const CasesToday = () => {
     casesMalaysiaData,
     casesStateLoading,
     casesStateData,
-    clustersLoading,
-    clustersData,
-    deathsMalaysiaLoading,
-    deathsMalaysiaData,
-    deathsStateLoading,
-    deathsStateData,
-    hospitalLoading,
-    hospitalData,
-    icuLoading,
-    icuData,
-    pkrcLoading,
-    pkrcData,
-    testsMalaysiaLoading,
-    testsMalaysiaData,
   } = useEpidemicData();
 
   const currentDate = new Date();
