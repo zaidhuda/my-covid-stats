@@ -92,6 +92,7 @@ const Choropleth = ({ loading, data: casesStates }: Props) => {
         height,
         maxWidth: '100%',
         maxHeight: '100%',
+        margin: 'auto'
       }}
     />
   );
