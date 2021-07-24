@@ -16,7 +16,7 @@ export default function Home() {
         <Flex direction="column" alignItems="center" minH="full" minW="90vw">
           <Tabs isFitted variant="enclosed" w="full">
             <TabList>
-              <Tab>Cases Today</Tab>
+              <Tab>Latest</Tab>
               <Tab>Trend</Tab>
               <Tab>Third</Tab>
             </TabList>
@@ -27,13 +27,11 @@ export default function Home() {
               <TabPanel>
                 <Trend />
               </TabPanel>
-              <TabPanel>
-                Coming soon #2!
-              </TabPanel>
+              <TabPanel>Coming soon #2!</TabPanel>
             </TabPanels>
           </Tabs>
         </Flex>
-        <Footer/>
+        <Footer />
       </Box>
     </>
   );
