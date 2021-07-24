@@ -38,8 +38,7 @@ export default function Home() {
         <h1>Cases Today</h1>
         <p>
           {!casesMalaysiaLoading &&
-            casesMalaysiaData &&
-            casesMalaysiaData[casesMalaysiaData.length - 1].cases_new}
+            casesMalaysiaData[casesMalaysiaData.length - 1]?.cases_new}
         </p>
         <SpikeMap data={casesStateData} loading={casesStateLoading} />
       </main>

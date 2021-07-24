@@ -3,6 +3,11 @@ import { useQuery } from 'react-query'
 import { epidemic } from './api'
 import csv from 'csvtojson';
 
+export interface CaseMalaysia {
+  date: string;
+  cases_new: number;
+}
+
 export interface CaseState {
   date: string;
   state: string;
@@ -43,8 +48,10 @@ const useHook = () => {
     data: { data: testsMalaysiaRawData } = {},
   } = useQuery('testsMalaysia', epidemic.testsMalaysia);
 
-  const [casesMalaysiaData, setCasesMalaysiaData] = useState<{}[]>();
-  const [casesStateData, setCasesStateData] = useState<CaseState[]>();
+  const [casesMalaysiaData, setCasesMalaysiaData] = useState<CaseMalaysia[]>(
+    []
+  );
+  const [casesStateData, setCasesStateData] = useState<CaseState[]>([]);
   const [clustersData, setClustersData] = useState<{}[]>();
   const [deathsMalaysiaData, setDeathsMalaysiaData] = useState<{}[]>();
   const [deathsStateData, setDeathsStateData] = useState<{}[]>();

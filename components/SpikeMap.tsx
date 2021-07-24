@@ -35,7 +35,7 @@ const SpikeMap = ({ loading, data: casesStates }: Props) => {
       .filter(({ date }) => date === '2021-07-23')
       .map(({ cases_new, state }) => {
         const feature = topoFeature.features.find(
-          ({ properties: { name } }) => name === state
+          ({ properties: { name } }: any) => name === state
         );
         return {
           id: state,
@@ -99,9 +99,8 @@ const SpikeMap = ({ loading, data: casesStates }: Props) => {
         data
           .filter((d) => d.position)
           .sort(
-            (a, b) =>
-              d3.ascending(a.position[1], b.position[1]) ||
-              d3.ascending(a.position[0], b.position[0])
+            ({ position: posA = [0, 0] }, { position: posB = [0, 0] }) =>
+              d3.ascending(posA[1], posB[1]) || d3.ascending(posA[0], posB[0])
           )
       )
       .join('path')

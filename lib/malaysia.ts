@@ -1,13 +1,8 @@
-import {
-  Topology,
-  GeometryCollection,
-  MultiPolygon,
-  Properties,
-} from 'topojson-specification';
+import { Topology, GeometryCollection } from 'topojson-specification';
 
 export default <
   Topology<{
-    malaysia: GeometryCollection<MultiPolygon<{ name: string }>>;
+    malaysia: GeometryCollection;
   }>
 >{
   type: 'Topology',
