@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query'
 import { epidemic } from './api'
-import csv from 'csvtojson';
+import converter from './converter';
 
 export interface CaseMalaysia {
   date: string;
@@ -62,55 +62,55 @@ const useHook = () => {
 
   useEffect(() => {
     if (!casesMalaysiaLoading && casesMalaysiaRawData) {
-      csv().fromString(casesMalaysiaRawData).then(setCasesMalaysiaData);
+      converter(setCasesMalaysiaData, casesMalaysiaRawData);
     }
   }, [casesMalaysiaLoading, casesMalaysiaRawData]);
 
   useEffect(() => {
     if (!casesStateLoading && casesStateRawData) {
-      csv().fromString(casesStateRawData).then(setCasesStateData);
+      converter(setCasesStateData, casesStateRawData);
     }
   }, [casesStateLoading, casesStateRawData]);
 
   useEffect(() => {
     if (!clustersLoading && clustersRawData) {
-      csv().fromString(clustersRawData).then(setClustersData);
+      converter(setClustersData, clustersRawData);
     }
   }, [clustersLoading, clustersRawData]);
 
   useEffect(() => {
     if (!deathsMalaysiaLoading && deathsMalaysiaRawData) {
-      csv().fromString(deathsMalaysiaRawData).then(setDeathsMalaysiaData);
+      converter(setDeathsMalaysiaData, deathsMalaysiaRawData);
     }
   }, [deathsMalaysiaLoading, deathsMalaysiaRawData]);
 
   useEffect(() => {
     if (!deathsStateLoading && deathsStateRawData) {
-      csv().fromString(deathsStateRawData).then(setDeathsStateData);
+      converter(setDeathsStateData, deathsStateRawData);
     }
   }, [deathsStateLoading, deathsStateRawData]);
 
   useEffect(() => {
     if (!hospitalLoading && hospitalRawData) {
-      csv().fromString(hospitalRawData).then(setHospitalData);
+      converter(setHospitalData, hospitalRawData);
     }
   }, [hospitalLoading, hospitalRawData]);
 
   useEffect(() => {
     if (!icuLoading && icuRawData) {
-      csv().fromString(icuRawData).then(setIcuData);
+      converter(setIcuData, icuRawData);
     }
   }, [icuLoading, icuRawData]);
 
   useEffect(() => {
     if (!pkrcLoading && pkrcRawData) {
-      csv().fromString(pkrcRawData).then(setPkrcData);
+      converter(setPkrcData, pkrcRawData);
     }
   }, [pkrcLoading, pkrcRawData]);
 
   useEffect(() => {
     if (!testsMalaysiaLoading && testsMalaysiaRawData) {
-      csv().fromString(testsMalaysiaRawData).then(setTestsMalaysiaData);
+      converter(setTestsMalaysiaData, testsMalaysiaRawData);
     }
   }, [testsMalaysiaLoading, testsMalaysiaRawData]);
 

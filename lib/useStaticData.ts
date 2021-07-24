@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query'
 import { staticData } from '../lib/api'
-import csv from 'csvtojson';
+import converter from './converter';
 
 const useHook = () => {
   const {
@@ -13,7 +13,7 @@ const useHook = () => {
 
   useEffect(() => {
     if (!populationLoading && populationRawData) {
-      csv().fromString(populationRawData).then(setPopulationData);
+      converter(setPopulationData, populationRawData);
     }
   }, [populationLoading, populationRawData]);
 

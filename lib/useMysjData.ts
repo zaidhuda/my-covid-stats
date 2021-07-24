@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useQuery } from 'react-query'
 import { mysj } from '../lib/api'
-import csv from 'csvtojson';
+import converter from './converter';
 
 const useHook = () => {
   const {
@@ -24,21 +24,19 @@ const useHook = () => {
 
   useEffect(() => {
     if (!checkinMalaysiaLoading && checkinMalaysiaRawData) {
-      csv().fromString(checkinMalaysiaRawData).then(setCheckinMalaysiaData);
+      converter(setCheckinMalaysiaData, checkinMalaysiaRawData);
     }
   }, [checkinMalaysiaLoading, checkinMalaysiaRawData]);
 
   useEffect(() => {
     if (!checkinMalaysiaTimeLoading && checkinMalaysiaTimeRawData) {
-      csv()
-        .fromString(checkinMalaysiaTimeRawData)
-        .then(setCheckinMalaysiaTimeData);
+      converter(setCheckinMalaysiaTimeData, checkinMalaysiaTimeRawData);
     }
   }, [checkinMalaysiaTimeLoading, checkinMalaysiaTimeRawData]);
 
   useEffect(() => {
     if (!traceMalaysiaLoading && traceMalaysiaRawData) {
-      csv().fromString(traceMalaysiaRawData).then(setTraceMalaysiaData);
+      converter(setTraceMalaysiaData, traceMalaysiaRawData);
     }
   }, [traceMalaysiaLoading, traceMalaysiaRawData]);
 

@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import Image from 'next/image'
-import SpikeMap from '../components/SpikeMap';
+import Choropleth from '../components/Choropleth';
 import useEpidemicData from '../lib/useEpidemicData';
 import styles from '../styles/Home.module.css';
 
@@ -40,7 +40,7 @@ export default function Home() {
           {!casesMalaysiaLoading &&
             casesMalaysiaData[casesMalaysiaData.length - 1]?.cases_new}
         </p>
-        <SpikeMap data={casesStateData} loading={casesStateLoading} />
+        <Choropleth data={casesStateData} loading={casesStateLoading} />
       </main>
 
       <footer className={styles.footer}>

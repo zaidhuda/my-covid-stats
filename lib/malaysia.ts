@@ -2,7 +2,32 @@ import { Topology, GeometryCollection } from 'topojson-specification';
 
 export default <
   Topology<{
-    malaysia: GeometryCollection;
+    malaysia: GeometryCollection<{
+      id: string;
+      featurecla: string;
+      scalerank: number;
+      adm1_code: string;
+      diss_me: number;
+      iso_3166_2: string;
+      wikipedia: string;
+      iso_a2: string;
+      adm0_sr: number;
+      name: string;
+      name_alt: string;
+      name_local: string;
+      type_en: string;
+      code_local: string;
+      note: string;
+      hasc_maybe: string;
+      postal: string;
+      sameascity: number;
+      woe_name: string;
+      latitude: number;
+      longitude: number;
+      admin: string;
+      gn_a1_code: string;
+      min_zoom: number;
+    }>;
   }>
 >{
   type: 'Topology',
