@@ -5,10 +5,9 @@ import { CaseState } from '../lib/useEpidemicData';
 
 interface Props {
   data: CaseState[];
-  days?: number;
 }
 
-const StackedBarChart = ({ data: casesStates, days = 90 }: Props) => {
+const StackedBarChart = ({ data: casesStates }: Props) => {
   const ref = useRef<SVGSVGElement | null>();
 
   const width = 1280;
@@ -36,37 +35,31 @@ const StackedBarChart = ({ data: casesStates, days = 90 }: Props) => {
 
     const states = [...new Set<string>(casesStates.map(({ state }) => state))];
 
-    const after = new Date(Date.now() - days * 24 * 60 * 60 * 1000)
-      .toJSON()
-      .split('T')[0];
-
-    const dates = casesStates
-      .filter(({ date }) => date > after)
-      .reduce(
-        (
-          acc: {
-            [name: string]: {
-              date: number;
-              name: string;
-              total: number;
-            };
-          },
-          { state, date, casesNew }
-        ) => {
-          const key = date.split(`${new Date().getFullYear()}-`)[1];
-
-          return {
-            ...acc,
-            [key]: {
-              ...acc[key],
-              name: key,
-              total: (acc[key]?.total || 0) + casesNew,
-              [state]: casesNew,
-            },
+    const dates = casesStates.reduce(
+      (
+        acc: {
+          [name: string]: {
+            date: number;
+            name: string;
+            total: number;
           };
         },
-        {}
-      );
+        { state, date, casesNew }
+      ) => {
+        const key = date.split(`${new Date().getFullYear()}-`)[1];
+
+        return {
+          ...acc,
+          [key]: {
+            ...acc[key],
+            name: key,
+            total: (acc[key]?.total || 0) + casesNew,
+            [state]: casesNew,
+          },
+        };
+      },
+      {}
+    );
 
     const series = d3
       .stack<{

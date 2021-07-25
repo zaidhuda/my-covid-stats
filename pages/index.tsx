@@ -43,9 +43,15 @@ export default function Home({ casesState }: Props) {
 export const getStaticProps = async () => {
   const { data: casesState } = await epidemic.casesState();
 
+  const after = new Date(Date.now() - 90 * 24 * 60 * 60 * 1000)
+    .toJSON()
+    .split('T')[0];
+
   return {
     props: {
-      casesState,
+      casesState: casesState.filter(
+        ({ date }: { date: string }) => date > after
+      ),
     },
     revalidate: 600,
   };
