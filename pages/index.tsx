@@ -3,8 +3,13 @@ import { Box, Flex, Heading, Tab, TabList, TabPanel, TabPanels, Tabs } from "@ch
 import Footer from '../components/Footer';
 import CasesToday from '../components/CasesToday';
 import Trend from '../components/Trend';
+import { epidemic } from '../lib/api';
 
-export default function Home() {
+interface Props {
+  casesState: any;
+}
+
+export default function Home({ casesState }: Props) {
   return (
     <>
       <Head>
@@ -18,16 +23,14 @@ export default function Home() {
             <TabList>
               <Tab>Latest</Tab>
               <Tab>Trend</Tab>
-              <Tab>Third</Tab>
             </TabList>
             <TabPanels>
               <TabPanel>
-                <CasesToday />
+                <CasesToday casesState={casesState} />
               </TabPanel>
               <TabPanel>
-                <Trend />
+                <Trend casesState={casesState} />
               </TabPanel>
-              <TabPanel>Coming soon #2!</TabPanel>
             </TabPanels>
           </Tabs>
         </Flex>
@@ -36,3 +39,14 @@ export default function Home() {
     </>
   );
 }
+
+export const getStaticProps = async () => {
+  const { data: casesState } = await epidemic.casesState();
+
+  return {
+    props: {
+      casesState,
+    },
+    revalidate: 600,
+  };
+};

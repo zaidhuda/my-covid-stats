@@ -1,14 +1,15 @@
 import { Box } from '@chakra-ui/react';
 import React from 'react';
-import useEpidemicData from '../lib/useEpidemicData';
 import StackedBarChart from './StackedBarChart';
 
-const Trend = () => {
-  const { casesStateLoading, casesStateData } = useEpidemicData();
+interface Props {
+  casesState: any;
+}
 
+const Trend = ({ casesState }: Props) => {
   return (
     <Box>
-      <StackedBarChart data={casesStateData} loading={casesStateLoading} />
+      <StackedBarChart data={casesState} />
     </Box>
   );
 };

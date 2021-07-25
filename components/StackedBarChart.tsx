@@ -1,23 +1,22 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 
 import { CaseState } from '../lib/useEpidemicData';
 
 interface Props {
-  loading: boolean;
   data: CaseState[];
   days?: number;
 }
 
-const StackedBarChart = ({ loading, data: casesStates, days = 90 }: Props) => {
+const StackedBarChart = ({ data: casesStates, days = 90 }: Props) => {
   const ref = useRef<SVGSVGElement | null>();
 
   const width = 1280;
   const height = 600;
 
-  if (loading || !casesStates) return null;
+  useEffect(() => {
+    if (!ref.current) return () => void 0;
 
-  if (ref.current) {
     const margin = { top: 10, right: 10, bottom: 40, left: 40 };
 
     const formatValue = (x: number) =>
@@ -52,7 +51,7 @@ const StackedBarChart = ({ loading, data: casesStates, days = 90 }: Props) => {
               total: number;
             };
           },
-          { state, date, cases_new }
+          { state, date, casesNew }
         ) => {
           const key = date.split(`${new Date().getFullYear()}-`)[1];
 
@@ -61,8 +60,8 @@ const StackedBarChart = ({ loading, data: casesStates, days = 90 }: Props) => {
             [key]: {
               ...acc[key],
               name: key,
-              total: (acc[key]?.total || 0) + cases_new,
-              [state]: cases_new,
+              total: (acc[key]?.total || 0) + casesNew,
+              [state]: casesNew,
             },
           };
         },
@@ -120,7 +119,7 @@ const StackedBarChart = ({ loading, data: casesStates, days = 90 }: Props) => {
       .attr('transform', 'rotate(-65)');
 
     svg.append('g').call(yAxis);
-  }
+  });
 
   return (
     <svg

@@ -5,13 +5,13 @@ import converter from './converter';
 
 export interface CaseMalaysia {
   date: string;
-  cases_new: number;
+  casesNew: number;
 }
 
 export interface CaseState {
   date: string;
   state: string;
-  cases_new: number;
+  casesNew: number;
 }
 
 const useHook = () => {

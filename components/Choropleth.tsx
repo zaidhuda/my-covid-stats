@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useEffect } from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
@@ -7,27 +7,26 @@ import { CaseState } from '../lib/useEpidemicData';
 import { Feature, Geometry } from 'geojson';
 
 interface Props {
-  loading: boolean;
   data: CaseState[];
 }
 
-const Choropleth = ({ loading, data: casesStates }: Props) => {
+const Choropleth = ({ data: casesStates }: Props) => {
   const ref = useRef<SVGSVGElement | null>();
 
   const width = 1280;
   const height = 600;
 
-  if (loading || !casesStates) return null;
-
   const dailyCases = casesStates.filter(({ date }) => date === '2021-07-23');
   const totalCases = dailyCases.reduce(
-    (acc, { cases_new }) => acc + cases_new,
+    (acc, { casesNew }) => acc + casesNew,
     0
   );
 
   const onClick = (_e: any, d: Feature<Geometry>) => {};
 
-  if (ref.current) {
+  useEffect(() => {
+    if (!ref.current) return () => void 0;
+
     const topoFeature = topojson.feature<{ name: string }>(
       my,
       my.objects.malaysia
@@ -49,11 +48,11 @@ const Choropleth = ({ loading, data: casesStates }: Props) => {
     );
 
     const data = new Map(
-      dailyCases.map(({ cases_new, state }) => [
+      dailyCases.map(({ casesNew, state }) => [
         state,
         {
-          value: cases_new,
-          percentage: (cases_new / totalCases) * 100,
+          value: casesNew,
+          percentage: (casesNew / totalCases) * 100,
         },
       ])
     );
@@ -83,7 +82,7 @@ const Choropleth = ({ loading, data: casesStates }: Props) => {
       .attr('stroke', 'white')
       .attr('stroke-linejoin', 'round')
       .attr('d', path);
-  }
+  });
 
   return (
     <svg
@@ -94,7 +93,7 @@ const Choropleth = ({ loading, data: casesStates }: Props) => {
         height,
         maxWidth: '100%',
         maxHeight: '100%',
-        margin: 'auto'
+        margin: 'auto',
       }}
     />
   );

@@ -33,7 +33,7 @@ const SpikeMap = ({ loading, data: casesStates }: Props) => {
 
     const data = casesStates
       .filter(({ date }) => date === '2021-07-23')
-      .map(({ cases_new, state }) => {
+      .map(({ casesNew, state }) => {
         const feature = topoFeature.features.find(
           ({ properties: { name } }: any) => name === state
         );
@@ -41,7 +41,7 @@ const SpikeMap = ({ loading, data: casesStates }: Props) => {
           id: state,
           position: feature && path.centroid(feature),
           title: state,
-          value: +cases_new,
+          value: +casesNew,
         };
       });
 

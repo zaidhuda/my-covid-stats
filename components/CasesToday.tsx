@@ -1,34 +1,33 @@
-import { Box, Heading } from '@chakra-ui/react'
-import React from 'react'
+import { Box, Heading } from '@chakra-ui/react';
+import React from 'react';
 import sortBy from 'lodash/sortBy';
 import Choropleth from './Choropleth';
-import useEpidemicData from '../lib/useEpidemicData';
 
-const CasesToday = () => {
-  const {
-    casesMalaysiaLoading,
-    casesMalaysiaData,
-    casesStateLoading,
-    casesStateData,
-  } = useEpidemicData();
+interface Props {
+  casesState: any;
+}
 
-  if (casesMalaysiaLoading) return <p>Loading</p>;
-
-  const latestRecord = sortBy(casesMalaysiaData, 'date').reverse()[0];
-
-  const latestDate = new Date(latestRecord?.date) || new Date();
+const CasesToday = ({ casesState }: Props) => {
+  const latestDate = sortBy(casesState, 'date').reverse()[0].date;
+  const latestRecords = casesState.filter(
+    ({ date }: { date: string }) => date === latestDate
+  );
+  const cases = latestRecords.reduce(
+    (acc: number, { casesNew }: { casesNew: number }) => acc + casesNew,
+    0
+  );
 
   return (
     <Box>
-      <Choropleth data={casesStateData} loading={casesStateLoading} />
+      <Choropleth data={casesState} />
       <Heading size="lg" align="center">
-        Updated, {latestDate.toDateString()}:
+        Updated, {(new Date(latestDate) || new Date()).toDateString()}:
       </Heading>
       <Heading size="4xl" align="center">
-        {latestRecord?.cases_new || 'Waiting report for'} new cases
+        {cases || 'Waiting report for'} new cases
       </Heading>
     </Box>
   );
 };
 
-export default CasesToday
+export default CasesToday;
